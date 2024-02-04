@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rmsoft.codingtest.mapper.SubscriptionMapper">
+
+    <!-- ResultMap: Defines how the database columns are mapped to the properties of the Subscription model class -->
+    <resultMap id="subscriptionResultMap" type="com.rmsoft.codingtest.model.Subscription">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="serviceType" column="service_type"/>
+        <result property="subscriptionPeriod" column="subscription_period"/>
+        <!-- Add other properties as needed -->
+    </resultMap>
+
+    <!-- SQL fragments -->
+    <sql id="subscriptionColumns">
+        id, username, service_type, subscription_period
+        <!-- Add other columns as needed -->
+    </sql>
+
+    <!-- SQL queries for CRUD operations -->
+
+    <select id="findById" resultMap="subscriptionResultMap">
+        SELECT
+        <include refid="subscriptionColumns"/>
+        FROM subscription
+        WHERE id = #{id}
+    </select>
+
+    <insert id="create" parameterType="com.rmsoft.codingtest.model.Subscription">
+        INSERT INTO subscription (username, service_type, subscription_period)
+        VALUES (#{username}, #{serviceType}, #{subscriptionPeriod})
+    </insert>
+
+    <update id="useStorage" parameterType="com.rmsoft.codingtest.model.Subscription">
+        UPDATE subscription
+        SET service_type = #{serviceType}, subscription_period = #{subscriptionPeriod}
+        WHERE username = #{username}
+    </update>
+
+    <update id="modify" parameterType="com.rmsoft.codingtest.model.Subscription">
+        UPDATE subscription
+        SET service_type = #{serviceType}, subscription_period = #{subscriptionPeriod}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

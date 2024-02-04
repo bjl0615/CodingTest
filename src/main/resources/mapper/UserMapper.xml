@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rmsoft.codingtest.UserMapper">
+
+    <resultMap id="userResultMap" type="com.rmsoft.codingtest.model.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <!-- Add other properties as needed -->
+    </resultMap>
+
+    <sql id="userColumns">
+        id, username, email
+        <!-- Add other columns as needed -->
+    </sql>
+
+    <select id="findById" resultMap="userResultMap">
+        SELECT
+        <include refid="userColumns"/>
+        FROM user
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByUsername" resultMap="userResultMap">
+        SELECT
+        <include refid="userColumns"/>
+        FROM user
+        WHERE username = #{username}
+    </select>
+
+    <insert id="save" parameterType="com.rmsoft.codingtest.model.User">
+        INSERT INTO user (username, email)
+        VALUES (#{username}, #{email})
+    </insert>
+
+    <update id="update" parameterType="com.rmsoft.codingtest.model.User">
+        UPDATE user
+        SET username = #{username}, email = #{email}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM user
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
