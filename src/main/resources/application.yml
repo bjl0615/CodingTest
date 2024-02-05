@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    session:
+      persistent: false
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/rmsoft
+    username : root
+    password : 1234
+
+  mybatis:
+    config-location: classpath:mybatis-config.xml
+    type-aliases-package: com.rmsoft.codingtest.model
+    mapper-locations: classpath:mapper/*.xml
+
+    jackson:
+      serialization:
+        fail-on-empty-beans: false
+
